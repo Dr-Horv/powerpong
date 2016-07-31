@@ -15,12 +15,12 @@ class GameModel {
 
     addPlayer1(player) {
         this.player1 = player;
-        this.player1.setPosition({x: this.width/10, y: this.height/2 + player.height/2})
+        this.player1.setPosition({x: this.width/10, y: this.height/2 - player.height/2})
     }
 
     addPlayer2(player) {
         this.player2 = player;
-        this.player2.setPosition({x: this.width - this.width/10, y: this.height/2 + player.height/2});
+        this.player2.setPosition({x: this.width - this.width/10, y: this.height/2 - player.height/2});
     }
 
     movePlayer1(dx, dy) {
@@ -54,7 +54,27 @@ class GameModel {
             return;
         }
 
-        //TODO, collide ball with players
+        if(this.isCollidingWithPlayer()) {
+            this.collideBallWithPlayer();
+            return
+        }
+    }
+
+    collideBallWithPlayer() {
+        const {x, y} = this.ball.velocityVector;
+        this.ball.setVelocityVector({x: -x, y: y});
+    }
+
+    isCollidingWithPlayer() {
+        const ballY = this.ball.y;
+        const ballX = this.ball.x;
+        const collidingWithPlayer = (p, offsetX=0) =>
+            ballX+offsetX < (p.x + p.width)
+            && ballX+offsetX > p.x
+            && ballY < (p.y + p.height)
+            && ballY > p.y;
+
+        return collidingWithPlayer(this.player1) || collidingWithPlayer(this.player2, this.player2.width);
     }
 
     player2Goal() {
@@ -72,7 +92,7 @@ class GameModel {
             x: this.width/2,
             y: this.height/2
         });
-        this.ball.setVelocityVector({x: 10, y: 0});
+        this.ball.setVelocityVector({x: 60, y: 0});
     }
 }
 
