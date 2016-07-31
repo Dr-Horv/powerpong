@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var loaders = require('./webpack.loaders');
+var postLoaders = require('./webpack.postloaders');
 
 module.exports = {
     entry: [
@@ -20,7 +21,8 @@ module.exports = {
         return [require('precss'), require('autoprefixer')]
     },
     module: {
-        loaders: loaders
+        loaders: loaders,
+        postLoaders: postLoaders
     },
     devServer: {
         historyApiFallback: true,
