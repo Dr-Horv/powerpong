@@ -72,6 +72,8 @@ const getUpdateFor = (componentRef) => {
     model.addBall(new Ball('red', 'black', 10, 10));
     model.addPlayer1(new Player('One', 'green', 'black', 10, 40));
     model.addPlayer2(new Player('Two', 'violet', 'black', 10, 40));
+    model.respawnBall();
+    console.log(model.ball);
 
     const update = (delta) => {
 
@@ -95,6 +97,7 @@ const getUpdateFor = (componentRef) => {
 };
 
 const AnimatedPong = animate(Pong, getUpdateFor(Pong));
+
 
 
 export default AnimatedPong;

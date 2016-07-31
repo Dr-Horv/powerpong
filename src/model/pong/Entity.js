@@ -7,6 +7,7 @@ class Entity {
         this.height = height;
         this.x = -1;
         this.y = -1;
+        this.boundingBox;
     }
 
     setBoundingBox(x1, y1, x2, y2) {
@@ -38,11 +39,14 @@ class Entity {
     }
 
     moveY(dy) {
-        if(dy > 0) {
-            this.y = Math.max((this.y + dy), this.boundingBox.y2);
-        } else if (dy < 0){
-            this.y = Math.min((this.y + dy), this.boundingBox.y1);
+        if(this.boundingBox) {
+            if(dy > 0) {
+                this.y = Math.max((this.y + dy), this.boundingBox.y2);
+            } else if (dy < 0){
+                this.y = Math.min((this.y + dy), this.boundingBox.y1);
+            }
         }
+
         this.y = this.y + dy;
     }
 

@@ -42,22 +42,27 @@ class GameModel {
         this.ball.moveX(dx);
         this.ball.moveY(dy);
         if(this.ball.x < 0) {
+            console.log('p1score');
             this.player1Goal();
             return;
         }
         if(this.ball.x > this.width) {
+            console.log('p2score');
             this.player2Goal();
             return;
         }
         if(this.ball.y < 0 || this.ball.y > this.height) {
+            console.log('wall');
             this.collideBallWithWall();
             return;
         }
 
         if(this.isCollidingWithPlayer()) {
+            console.log('playerColission');
             this.collideBallWithPlayer();
             return
         }
+
     }
 
     collideBallWithPlayer() {
@@ -92,7 +97,7 @@ class GameModel {
             x: this.width/2,
             y: this.height/2
         });
-        this.ball.setVelocityVector({x: 60, y: 0});
+        this.ball.setVelocityVector({x: 60, y: 20});
     }
 }
 
